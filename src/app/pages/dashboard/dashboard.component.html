@@ -1,0 +1,53 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+        <img src="assets/images/auth-background.png" alt="logo">
+    </div>
+    <div class="mt-15">
+    <ul nz-menu [nzTheme]="'dark'" nzMode="inline">
+      <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"></ng-container>
+      <ng-template #menuTpl let-menus>
+        <ng-container *ngFor="let menu of menus;">
+          <li nz-menu-item nzTooltipPlacement="right" [nzDisabled]="menu.disabled" [nzSelected]="menu.selected"
+            (click)="onClickSideMenuItem(menu.routingPath)">
+            <i nz-icon class="align-middle" [ngClass]="{'ml-8': menu.level !== 1 }" [nzType]="menu.icon"
+              *ngIf="menu.icon"></i>
+            <span>
+              <strong>
+              {{ menu.title }}
+            </strong>
+            </span>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </div>
+  </nz-sider>
+  <nz-layout>
+
+    <nz-header>
+      <div nz-row nzJustify="space-between" class="app-header" *ngIf="authService.authState as user">
+        <div nz-col [nzXs]="{ span: 1}" [nzLg]="{ span: 1}">
+          <i  class="trigger header-trigger"  (click)="isCollapsed = !isCollapsed"
+          nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </div>
+        <div nz-col [nzXs]="{offset: 12, span: 5}" [nzLg]="{offset: 19 ,span: 2}">
+        {{ (user.displayName) ? user.displayName : 'User'}}
+      </div>
+        <div nz-col [nzXs]="{ span: 0.5}" [nzLg]="{ span: 2}" >
+          <i class="trigger header-trigger"
+          nz-icon nzType="logout" nzTheme="outline"
+          (click)="onSignOut()">
+        </i>
+      </div>
+      </div>
+    </nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

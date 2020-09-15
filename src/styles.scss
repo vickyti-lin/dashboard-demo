@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~firebaseui/dist/firebaseui.css';
+
+::ng-deep .nz-fix-icon-position svg {
+  margin-right: 4px;;
+  transform: (translateY(- 25%))
+}

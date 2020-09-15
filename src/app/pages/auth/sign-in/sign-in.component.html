@@ -1,0 +1,12 @@
+<div>
+    <img src="assets/images/auth-background.png" alt="logo">
+</div>
+<br>
+<div *ngIf="errorMessage">
+    <nz-alert nzType="error" nzMessage="{{errorMessage}}"></nz-alert>
+</div>
+<firebase-ui (signInSuccessWithAuthResult)="successLogin($event)"
+            (signInFailure)="errorCallback($event)">
+</firebase-ui>
+
+
